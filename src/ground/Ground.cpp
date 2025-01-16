@@ -2,13 +2,13 @@
 #include "rlgl.h"
 
 Ground::Ground() {
-    width = 1024.0f;  
-    length = 1024.0f;
+    width = 20.0f;  
+    length = 20.0f;
     
     position = {
-        -width / 2.0f,  
-        -5.0f,          
-        -length / 2.0f  
+        0.0f,  
+        0.0f,  
+        0.0f   
     };
 }
 
@@ -36,8 +36,8 @@ void Ground::Init() {
         float u = mesh.texcoords[texcoordIndex];
         float v = mesh.texcoords[texcoordIndex + 1];
         
-        mesh.texcoords[texcoordIndex] = u * 20.0f;
-        mesh.texcoords[texcoordIndex + 1] = v * 20.0f;
+        mesh.texcoords[texcoordIndex] = u;
+        mesh.texcoords[texcoordIndex + 1] = v;
     }
     
     model = LoadModelFromMesh(mesh);

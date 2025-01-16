@@ -23,7 +23,13 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(raylib_cpp)
 
 # Создаем исполняемый файл
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} 
+    src/main.cpp
+    src/core/GameEngine.cpp
+    src/rendering/Renderer.cpp
+    src/models/ModelLoader.cpp
+    src/camera/CameraController.cpp
+)
 
 # Подключаем библиотеки и включаем пути
 target_include_directories(${PROJECT_NAME} PRIVATE

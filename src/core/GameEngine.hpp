@@ -4,6 +4,7 @@
 #include "../models/ModelLoader.hpp"
 #include "../rendering/Renderer.hpp"
 #include "../terrain/TerrainGenerator.hpp"
+#include "../ground/Ground.hpp"
 
 class GameEngine {
 private:
@@ -12,6 +13,7 @@ private:
     CameraController cameraController;
     ModelLoader modelLoader;
     TerrainGenerator terrain;
+    Ground ground;
 
 public:
     GameEngine();

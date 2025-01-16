@@ -30,6 +30,7 @@ add_executable(${PROJECT_NAME}
     src/models/ModelLoader.cpp
     src/camera/CameraController.cpp
     src/terrain/TerrainGenerator.cpp
+    src/ground/Ground.cpp
 )
 
 # Подключаем библиотеки и включаем пути

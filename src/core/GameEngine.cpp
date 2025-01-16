@@ -17,13 +17,14 @@ GameEngine::GameEngine() :
 
 void GameEngine::Load() {
     modelLoader.LoadFromFile("resources/models/cube.obj");
+    ground.Init();
 }
 
 void GameEngine::Run() {
     while (!window.ShouldClose()) {
         cameraController.Update();
         modelLoader.Update();
-        terrain.Update();
-        Renderer::DrawScene(camera, modelLoader, terrain);
+        // terrain.Update();
+        Renderer::DrawScene(camera, modelLoader, terrain, ground);
     }
 } 

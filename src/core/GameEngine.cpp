@@ -23,6 +23,7 @@ void GameEngine::Run() {
     while (!window.ShouldClose()) {
         cameraController.Update();
         modelLoader.Update();
-        Renderer::DrawScene(camera, modelLoader);
+        terrain.Update();
+        Renderer::DrawScene(camera, modelLoader, terrain);
     }
 } 

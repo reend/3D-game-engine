@@ -3,6 +3,7 @@
 #include "../camera/CameraController.hpp"
 #include "../models/ModelLoader.hpp"
 #include "../rendering/Renderer.hpp"
+#include "../terrain/TerrainGenerator.hpp"
 
 class GameEngine {
 private:
@@ -10,6 +11,7 @@ private:
     raylib::Camera3D camera;
     CameraController cameraController;
     ModelLoader modelLoader;
+    TerrainGenerator terrain;
 
 public:
     GameEngine();

@@ -1,6 +1,6 @@
 #include "Renderer.hpp"
 
-void Renderer::DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, TerrainGenerator& terrain) {
+void Renderer::DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, TerrainGenerator& terrain, Ground& ground) {
     BeginDrawing();
     {
         ClearBackground(BLACK);
@@ -9,7 +9,8 @@ void Renderer::DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, Ter
         {
             DrawGrid(20, 1.0f);
             modelLoader.Draw();
-            terrain.Draw();
+            // terrain.Draw();
+            ground.Draw();
             
             DrawLine3D({0,0,0}, {20,0,0}, RED);    // X
             DrawLine3D({0,0,0}, {0,20,0}, GREEN);  // Y

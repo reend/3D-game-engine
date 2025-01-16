@@ -49,10 +49,19 @@ void Ground::Init() {
 }
 
 void Ground::Draw() {
-    DrawModel(
-        model,
-        (Vector3){ position.x + width/2, position.y, position.z + length/2 },
-        1.0f,
-        WHITE
-    );
+    // Create a grid of ground segments
+    for (int x = -2; x <= 2; x++) {      // Horizontal spread (left/right)
+        for (int z = -2; z <= 2; z++) {  // Depth spread (forward/backward)
+            DrawModel(
+                model,
+                (Vector3){ 
+                    position.x + width/2 + (x * width),   // X offset
+                    position.y,                           // Y stays the same
+                    position.z + length/2 + (z * length)  // Z offset
+                },
+                1.0f,
+                WHITE
+            );
+        }
+    }
 } 

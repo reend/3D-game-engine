@@ -8,7 +8,7 @@ void Renderer::DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, Ter
         camera.BeginMode();
         {
             DrawGrid(20, 1.0f);
-            modelLoader.Draw();
+            // modelLoader.Draw();
             // terrain.Draw();
             ground.Draw();
             

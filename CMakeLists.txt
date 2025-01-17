@@ -33,6 +33,9 @@ add_executable(${PROJECT_NAME}
     src/ground/Ground.cpp
     src/physics/PhysicsBody.cpp
     src/player/Player.cpp
+    src/inputs/InputManager.cpp
+    src/inputs/CameraInput.cpp
+    src/inputs/MovementInput.cpp
 )
 
 # Подключаем библиотеки и включаем пути

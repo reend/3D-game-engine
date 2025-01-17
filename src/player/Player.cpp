@@ -1,8 +1,9 @@
 #include "Player.hpp"
 #include "raymath.h"
 
-Player::Player(raylib::Camera3D& cam) : 
+Player::Player(raylib::Camera3D& cam, InputManager& input) : 
     camera(cam),
+    inputManager(input),
     physicsBody(cam.position),
     moveSpeed(15.0f),
     jumpForce(15.0f),
@@ -13,64 +14,21 @@ Player::Player(raylib::Camera3D& cam) :
 }
 
 void Player::Update(float deltaTime) {
-    HandleInput(deltaTime);
-    physicsBody.Update(deltaTime);
-    UpdateCamera();
-}
-
-void Player::HandleInput(float deltaTime) {
-    float mouseSensitivity = 0.002f;
-    float mouseX = GetMouseDelta().x * mouseSensitivity;
-    float mouseY = GetMouseDelta().y * mouseSensitivity;
+    auto inputState = inputManager.Update(deltaTime, 0.002f);
     
-    cameraYaw -= mouseX; // left-right
-    cameraPitch -= mouseY; // up-down
+    cameraPitch = inputState.cameraPitch;
+    cameraYaw = inputState.cameraYaw;
     
-    cameraPitch = fmaxf(fminf(cameraPitch, 1.5f), -1.5f);
-    
-    Vector3 forward;
-    forward.x = cosf(cameraPitch) * sinf(cameraYaw);
-    forward.y = sinf(cameraPitch);
-    forward.z = cosf(cameraPitch) * cosf(cameraYaw);
-    forward = Vector3Normalize(forward);
-    
-    camera.target = Vector3Add(camera.position, forward);
-    
-    Vector3 moveForward = forward;
-    moveForward.y = 0;
-    moveForward = Vector3Normalize(moveForward);
-    
-    Vector3 right = Vector3CrossProduct(moveForward, (Vector3){0, 1, 0});
-    right = Vector3Normalize(right);
-    
-    raylib::Vector3 moveDirection(0.0f, 0.0f, 0.0f);
-    
-    if (IsKeyDown(KEY_W)) {
-        moveDirection.x += moveForward.x;
-        moveDirection.z += moveForward.z;
-    }
-    if (IsKeyDown(KEY_S)) {
-        moveDirection.x -= moveForward.x;
-        moveDirection.z -= moveForward.z;
-    }
-    
-    if (IsKeyDown(KEY_A)) {
-        moveDirection.x -= right.x;
-        moveDirection.z -= right.z;
-    }
-    if (IsKeyDown(KEY_D)) {
-        moveDirection.x += right.x;
-        moveDirection.z += right.z;
-    }
-    
-    if (IsKeyPressed(KEY_SPACE) && physicsBody.IsGrounded()) {
+    if (inputState.jumpRequested && physicsBody.IsGrounded()) {
         physicsBody.ApplyForce(raylib::Vector3(0.0f, jumpForce, 0.0f));
     }
     
-    if (moveDirection.Length() > 0) {
-        moveDirection = moveDirection.Normalize();
-        physicsBody.ApplyForce(moveDirection * moveSpeed);
+    if (inputState.moveDirection.Length() > 0) {
+        physicsBody.ApplyForce(inputState.moveDirection * moveSpeed);
     }
+    
+    physicsBody.Update(deltaTime);
+    UpdateCamera();
 }
 
 void Player::UpdateCamera() {

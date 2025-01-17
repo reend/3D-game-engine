@@ -6,6 +6,6 @@
 
 class Renderer {
 public:
-    static void DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, TerrainGenerator& terrain, Ground& ground);
+    static void DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, Ground& ground);
     static void DrawUI();
 }; 

@@ -8,12 +8,12 @@ GameEngine::GameEngine() :
         raylib::Vector3(0.0f, 1.0f, 0.0f),
         45.0f,
         CAMERA_PERSPECTIVE
-    ),
-    cameraController(camera)
+    )
 {
     SetTargetFPS(60);
     DisableCursor();
-    player = std::make_unique<Player>(camera);
+    inputManager.Init();
+    player = std::make_unique<Player>(camera, inputManager);
 }
 
 void GameEngine::Load() {
@@ -31,6 +31,6 @@ void GameEngine::Run() {
         
         modelLoader.Update();
         
-        Renderer::DrawScene(camera, modelLoader, terrain, ground);
+        Renderer::DrawScene(camera, modelLoader, ground);
     }
 } 

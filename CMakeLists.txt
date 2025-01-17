@@ -31,6 +31,8 @@ add_executable(${PROJECT_NAME}
     src/camera/CameraController.cpp
     src/terrain/TerrainGenerator.cpp
     src/ground/Ground.cpp
+    src/physics/PhysicsBody.cpp
+    src/player/Player.cpp
 )
 
 # Подключаем библиотеки и включаем пути

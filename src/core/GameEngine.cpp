@@ -13,18 +13,26 @@ GameEngine::GameEngine() :
 {
     SetTargetFPS(60);
     DisableCursor();
+    player = std::make_unique<Player>(camera);
 }
 
 void GameEngine::Load() {
     modelLoader.LoadFromFile("resources/models/cube.obj");
     ground.Init();
+    player->GetPhysicsBody().SetGround(&ground);
 }
 
 void GameEngine::Run() {
     while (!window.ShouldClose()) {
-        cameraController.Update();
+        deltaTime = GetFrameTime();
+        
+        // Update player physics and movement
+        player->Update(deltaTime);
+        
+        // Update other systems
         modelLoader.Update();
-        // terrain.Update();
+        
+        // Render scene
         Renderer::DrawScene(camera, modelLoader, terrain, ground);
     }
 } 

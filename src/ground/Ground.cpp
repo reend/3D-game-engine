@@ -4,10 +4,11 @@
 Ground::Ground() {
     width = 20.0f;  
     length = 20.0f;
+    height = 0.0f;  // Уровень земли
     
     position = {
         0.0f,  
-        0.0f,  
+        height,  
         0.0f   
     };
 }
@@ -64,4 +65,4 @@ void Ground::Draw() {
             );
         }
     }
-} 
+}

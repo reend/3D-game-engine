@@ -66,20 +66,3 @@ void Ground::Draw() {
         }
     }
 }
-
-bool Ground::CheckCollision(const Vector3& point) const {
-    // Проверяем, находится ли точка над землёй
-    float groundLevel = position.y;
-    
-    // Учитываем размеры земли (5x5 сегментов)
-    float totalWidth = width * 5;
-    float totalLength = length * 5;
-    float halfWidth = totalWidth / 2.0f;
-    float halfLength = totalLength / 2.0f;
-    
-    // Проверяем, находится ли точка в пределах земли по X и Z
-    bool withinX = (point.x >= -halfWidth && point.x <= halfWidth);
-    bool withinZ = (point.z >= -halfLength && point.z <= halfLength);
-    
-    return withinX && withinZ && point.y <= groundLevel;
-} 

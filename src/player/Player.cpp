@@ -23,8 +23,8 @@ void Player::HandleInput(float deltaTime) {
     float mouseX = GetMouseDelta().x * mouseSensitivity;
     float mouseY = GetMouseDelta().y * mouseSensitivity;
     
-    cameraYaw -= mouseX;
-    cameraPitch -= mouseY;
+    cameraYaw -= mouseX; // left-right
+    cameraPitch -= mouseY; // up-down
     
     cameraPitch = fmaxf(fminf(cameraPitch, 1.5f), -1.5f);
     

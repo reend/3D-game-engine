@@ -1,7 +1,7 @@
 #include "GameEngine.hpp"
 
 GameEngine::GameEngine() : 
-    window(800, 600, "3D Game Engine"),
+    window(1280, 720, "3D"),
     camera(
         raylib::Vector3(50.0f, 50.0f, 50.0f),
         raylib::Vector3(0.0f, 0.0f, 0.0f),
@@ -29,10 +29,8 @@ void GameEngine::Run() {
         // Update player physics and movement
         player->Update(deltaTime);
         
-        // Update other systems
         modelLoader.Update();
         
-        // Render scene
         Renderer::DrawScene(camera, modelLoader, terrain, ground);
     }
 } 

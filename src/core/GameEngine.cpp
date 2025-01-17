@@ -17,7 +17,7 @@ GameEngine::GameEngine() :
 }
 
 void GameEngine::Load() {
-    modelLoader.LoadFromFile("resources/models/cube.obj");
+    // modelLoader.LoadFromFile("resources/models/cube.obj");
     ground.Init();
     player->GetPhysicsBody().SetGround(&ground);
 }

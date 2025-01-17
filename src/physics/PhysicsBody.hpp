@@ -10,10 +10,10 @@ private:
     float mass;
     bool isGrounded;
     float height;
-    const Ground* ground;  // Указатель на землю для проверки коллизий
+    const Ground* ground;
     
 public:
-    static constexpr float GRAVITY = -9.81f;
+    static constexpr float GRAVITY = -25.0f;
     
     PhysicsBody(const raylib::Vector3& pos, float mass = 1.0f);
     

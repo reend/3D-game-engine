@@ -4,38 +4,38 @@ PhysicsBody::PhysicsBody(const raylib::Vector3& pos, float mass) :
     position(pos),
     mass(mass),
     isGrounded(false),
-    height(2.0f), // Высота игрока
+    height(4.0f),
     ground(nullptr)
 {
     velocity = raylib::Vector3(0.0f, 0.0f, 0.0f);
     acceleration = raylib::Vector3(0.0f, 0.0f, 0.0f);
 }
 
-void PhysicsBody::SetGrounded(bool grounded) {
-    isGrounded = grounded;
-}
-
 void PhysicsBody::Update(float deltaTime) {
     if (!isGrounded) {
-        // Применяем гравитацию
-        acceleration.y = GRAVITY;
-    } else {
-        acceleration.y = 0.0f;
-        velocity.y = 0.0f;
+        velocity.y += GRAVITY * deltaTime;
     }
     
-    // Обновляем скорость
-    velocity += acceleration * deltaTime;
-    
     // Обновляем позицию
-    raylib::Vector3 newPosition = position + velocity * deltaTime;
+    raylib::Vector3 newPosition = position;
+    
+    // Горизонтальное движение (без накопления скорости)
+    newPosition.x += velocity.x * deltaTime;
+    newPosition.z += velocity.z * deltaTime;
+    
+    // Вертикальное движение
+    if (!isGrounded) {
+        newPosition.y += velocity.y * deltaTime;
+    }
     
     // Проверяем коллизию с землёй
     if (ground) {
-        Vector3 checkPoint = { newPosition.x, newPosition.y, newPosition.z };
-        if (ground->CheckCollision(checkPoint)) {
-            // При коллизии устанавливаем позицию на уровне земли
-            newPosition.y = ground->GetHeight() + height/2;
+        float groundLevel = ground->GetHeight();
+        float playerBottom = newPosition.y - height/2; // Позиция нижней точки игрока
+        
+        if (playerBottom <= groundLevel) {
+            // Устанавливаем игрока точно на землю
+            newPosition.y = groundLevel + height/2;
             isGrounded = true;
             velocity.y = 0.0f;
         } else {
@@ -45,10 +45,22 @@ void PhysicsBody::Update(float deltaTime) {
     
     position = newPosition;
     
-    // Сбрасываем ускорение
-    acceleration = raylib::Vector3(0.0f, 0.0f, 0.0f);
+    // Сбрасываем горизонтальную скорость каждый кадр (предотвращает ускорение)
+    velocity.x = 0.0f;
+    velocity.z = 0.0f;
 }
 
 void PhysicsBody::ApplyForce(const raylib::Vector3& force) {
-    acceleration += force / mass;
+    // Для ходьбы применяем силу напрямую к скорости, без ускорения
+    if (force.y == 0.0f) { // Если это горизонтальное движение
+        velocity.x = force.x;
+        velocity.z = force.z;
+    } else { // Для вертикальных сил (прыжок)
+        velocity.y = force.y;
+        isGrounded = false; // При прыжке сразу отмечаем, что не на земле
+    }
+}
+
+void PhysicsBody::SetGrounded(bool grounded) {
+    isGrounded = grounded;
 } 

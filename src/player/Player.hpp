@@ -11,6 +11,9 @@ private:
     raylib::Camera3D& camera;
     float moveSpeed;
     float jumpForce;
+    float cameraPitch;  // Угол наклона камеры (вверх/вниз)
+    float cameraYaw;    // Угол поворота камеры (влево/вправо)
+    float cameraHeight;  // Добавляем фиксированную высоту камеры
     
 public:
     explicit Player(raylib::Camera3D& camera);

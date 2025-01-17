@@ -1,6 +1,6 @@
 #include "Renderer.hpp"
 
-void Renderer::DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, TerrainGenerator& terrain, Ground& ground) {
+void Renderer::DrawScene(raylib::Camera3D& camera, ModelLoader& modelLoader, Ground& ground) {
     BeginDrawing();
     {
         ClearBackground(BLACK);

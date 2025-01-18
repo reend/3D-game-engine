@@ -19,7 +19,4 @@ InputState InputManager::Update(float deltaTime, float mouseSensitivity) {
 }
 
 void InputManager::Init() {
-    // Инициализация, если потребуется
-    // Например, можно добавить настройки чувствительности мыши
-    // или привязку клавиш
 }
